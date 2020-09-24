@@ -1,8 +1,8 @@
-##Banner grabbing
+# Tecnicas de Banner grabbing
 
 { echo -e "GET / HTTP/1.0\r\nHost: <host>\r\n\r" >&3; cat <&3 ; } 3<> /dev/tcp - udp/<host>/80
 
--Ncat:
+## Ncat:
 
 nc -v <IP> 21
 nc -v <IP> 22
@@ -10,33 +10,31 @@ nc -v <IP> 80
 HEAD / HTTP/1.0
 HEAD / HTTP/1.1
 
--Telnet
+## Telnet
 
 telnet <IP> 22
 
--Curl
+## Curl
 
 curl -I <IP> | grep -e “Server: ”
+  
+curl -s -v -D - "https://ejemplo" > /dev/null
 
--Nmap
+## Nmap
 
 nmap -sV --script=banner <IP>
 
--Echo + ncat
+# Echo + ncat
 
 echo "" | nc -v -n -w1 <IP> 80
 
-Curl:
+## Openssl
 
--curl -s -v -D - "https://ejemplo" > /dev/null
+openssl s_client -connect "host:puerto"
 
-Openssl
+echo | openssl s_client -connect host:puerto | openssl x509 -text -noout
 
--openssl s_client -connect "host:puerto"
-
--echo | openssl s_client -connect host:puerto | openssl x509 -text -noout
-
-Wget
+## Wget
 
 -wget IP -q -S
 
